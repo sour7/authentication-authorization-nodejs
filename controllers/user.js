@@ -1,0 +1,27 @@
+import User from "../models/User.js";
+
+
+export const deleteUser = async (req,res,next)=>{
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("User has been deleted.");
+  } catch (err) {
+    next(err);
+  }
+}
+export const getUser = async (req,res,next)=>{
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+}
+export const deleteUsers = async (req,res,next)=>{
+  try {
+    const users = await User.deleteMany();
+    res.status(200).json("all user deleted !");
+  } catch (err) {
+    next(err);
+  }
+}
